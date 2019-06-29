@@ -189,7 +189,7 @@
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
     if (Array.isArray(collection)) {
-      for (var i = 0; i < collection.length; i++) {
+      for (var i = 0; i < collection.length; i += 1) {
         (i === 0 && accumulator === undefined) ? accumulator = collection[i] : accumulator = iterator(accumulator, collection[i])
       }
     }
@@ -216,13 +216,60 @@
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    // TIP: Try re-using reduce() here.
-  };
+    if (iterator === undefined) {
+      iterator = _.identity;
+    }
 
+    if (Array.isArray(collection)) {
+      for (var i = 0; i < collection.length; i += 1) {
+        if (!iterator(collection[i])) {
+          return false;
+        }
+      }
+      return true;
+    }
+    else {
+      for (var key in collection) {
+        if (!iterator(key, collection[key])) {
+          return false;
+        }
+      }
+      return true;
+    }
+    // } else {
+      //   for (var ele in collection) {
+        //     if (!ele) {
+          //       return false;
+          //     }
+          //   }
+          //   return true;
+          // }
+        };
+        
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
-    // TIP: There's a very clever way to re-use every() here.
+   if (iterator === undefined) {
+     iterator = _.identity;
+   }
+      
+   if (Array.isArray(collection)) {
+     for (var i = 0; i < collection.length; i += 1) {
+        if (iterator(collection[i])) {
+          return true;
+        }
+     }
+     return false;
+   }
+   else {
+     for (var key in collection) {
+        if (iterator(key, collection[key])) {
+          return true;
+        }
+     }
+     return false;
+   }
+
   };
 
 
@@ -274,7 +321,7 @@
     // if it hasn't been called before.
     return function() {
       if (!alreadyCalled) {
-        // TIP: .apply(this, arguments) is the standard way to pass on all of the
+ // TIP: .apply(this, arguments) is the standard way to pass on all of the
         // infromation from one function call to another.
         result = func.apply(this, arguments);
         alreadyCalled = true;
