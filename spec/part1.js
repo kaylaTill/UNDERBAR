@@ -342,12 +342,11 @@
         expect(_.uniq(numbers)).to.eql([1, 2, 3, 4]);
       });
 
-      it('should handle iterators that work with a sorted array', function() {
-        var iterator = function(value) { return value === 1; };
-        var numbers = [1, 2, 2, 3, 4, 4];
+      it('should handle iterators that work with a sorted array', function () {
+        var iterator = function (value) { return value + 1; };
+        var list = [1, 2, 2, 3, 4, 4];
 
-        // expect(_.uniq(numbers, iterator)).to.eql([1, 2, 3]);
-        expect(_.uniq(numbers)).to.eql([1, 2, 3]);
+        expect(_.uniq(list, true, iterator)).to.eql([1, 2, 3, 4]);
       });
 
       it('should produce a brand new array instead of modifying the input array', function() {

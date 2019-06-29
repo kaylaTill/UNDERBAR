@@ -114,6 +114,23 @@
       }
     }
     return noDupes;
+
+
+    // var count = {};
+    // var noDupes = [];
+    // iterator = (isSorted && iterator) || _.identity;
+
+    // _.each(array, function (ele) {
+    //   var mappedItem = iterator(ele);
+    //   if (count[mappedItem] === undefined) {
+    //     count[mappedItem] = ele;
+    //   }
+    // });
+    // _.each(count, function (value) {
+    //   noDupes.push(value);
+    // });
+    // return noDupes;
+   
   };
 
 
