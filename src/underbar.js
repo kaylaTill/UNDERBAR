@@ -106,15 +106,31 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
+   var noDupes = [];
+    for (var i = 0; i < array.length; i += 1) {
+      var ele = array[i];
+      if ((_.indexOf(noDupes, ele) === -1)) {
+        noDupes.push(ele);
+      }
+    }
+    return noDupes;
   };
 
 
   // Return the results of applying an iterator to each element.
+  // map() is a useful primitive iteration function that works a lot
+  // like each(), but in addition to running the operation on all
+  // the members, it also maintains an array of results.
+
   _.map = function(collection, iterator) {
-    // map() is a useful primitive iteration function that works a lot
-    // like each(), but in addition to running the operation on all
-    // the members, it also maintains an array of results.
+    var newArr = [];
+    for (var i = 0; i < collection.length; i += 1) {
+      var ele = collection[i];
+      newArr.push(iterator(ele));
+    }
+    return newArr;
   };
+
 
   /*
    * TIP: map is really handy when you want to transform an array of
@@ -155,6 +171,17 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    if (Array.isArray(collection)) {
+      for (var i = 0; i < collection.length; i++) {
+        (i === 0 && accumulator === undefined) ? accumulator = collection[i] : accumulator = iterator(accumulator, collection[i])
+      }
+    }
+    else {
+      for (var key in collection) {
+        accumulator = iterator(accumulator, collection[key]);
+      }
+    }
+    return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).

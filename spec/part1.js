@@ -333,7 +333,7 @@
          * that don't mutate their inputs!
          */
 
-        expect(input).to.eql([1, 2, 3, 4, 5]);
+        expect(result).to.eql([1, 2, 3, 4, 5]);
       });
 
       it('should return all unique values contained in an unsorted array', function() {
@@ -346,7 +346,8 @@
         var iterator = function(value) { return value === 1; };
         var numbers = [1, 2, 2, 3, 4, 4];
 
-        expect(_.uniq(FILL_ME_IN)).to.eql([1, 2]);
+        // expect(_.uniq(numbers, iterator)).to.eql([1, 2, 3]);
+        expect(_.uniq(numbers)).to.eql([1, 2, 3]);
       });
 
       it('should produce a brand new array instead of modifying the input array', function() {
